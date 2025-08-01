@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Allow crawling of all product pages
+Allow: /product/
+
+# Allow crawling of main pages
+Allow: /cart
+Allow: /orders
+
+# Disallow crawling of checkout and thank you pages (private user flows)
+Disallow: /checkout
+Disallow: /thank-you
+
+# Sitemap location
+Sitemap: https://techelement.com/sitemap.xml
+
+# Crawl delay (optional, helps prevent server overload)
+Crawl-delay: 1
