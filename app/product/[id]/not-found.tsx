@@ -30,7 +30,7 @@ export default function ProductNotFound() {
               </Link>
               
               <p className="text-sm text-gray-500">
-                Or browse our full collection of products.
+                Or browse our full collection of products
               </p>
             </div>
           </CardContent>
