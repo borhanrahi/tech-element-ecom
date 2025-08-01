@@ -20,7 +20,6 @@ import {
   CardTitle,
 } from "../../components/ui/card";
 import OrderTable from "../../components/orders/OrderTable";
-import EmptyState from "../../components/common/EmptyState";
 import { useAppSelector } from "../../store/hooks";
 import { formatPrice } from "../../lib/api";
 

@@ -7,7 +7,6 @@ import { ShoppingCart, Minus, Plus, Trash2 } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '../ui/sheet';
 import { Badge } from '../ui/badge';
-import { Separator } from '../ui/separator';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { updateQuantity, removeFromCart } from '../../store/slices/cartSlice';
 import { formatPrice, truncateText } from '../../lib/api';
