@@ -16,11 +16,15 @@ import {
   User
 } from '@/store/slices/usersSlice';
 import UserModal from '@/components/admin/UserModal';
+import DeleteUserDialog from '@/components/admin/DeleteUserDialog';
 import { toast } from 'sonner';
 
 const UserManagement = () => {
   const [userModalOpen, setUserModalOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [userToDelete, setUserToDelete] = useState<User | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
   
   const dispatch = useAppDispatch();
   const { users, searchTerm, roleFilter, currentPage, usersPerPage } = useAppSelector((state) => state.users);
@@ -43,11 +47,24 @@ const UserManagement = () => {
     toast.success('User status updated');
   };
 
-  const handleDeleteUser = (userId: string) => {
-    if (window.confirm('Are you sure you want to delete this user?')) {
-      dispatch(deleteUser(userId));
+  const handleDeleteUser = (user: User) => {
+    setUserToDelete(user);
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDeleteUser = async () => {
+    if (!userToDelete) return;
+    
+    setIsDeleting(true);
+    
+    // Simulate API call delay
+    setTimeout(() => {
+      dispatch(deleteUser(userToDelete.id));
       toast.success('User deleted successfully');
-    }
+      setDeleteDialogOpen(false);
+      setUserToDelete(null);
+      setIsDeleting(false);
+    }, 1000);
   };
 
   const handleEditUser = (user: User) => {
@@ -170,7 +187,7 @@ const UserManagement = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleDeleteUser(user.id)}
+                          onClick={() => handleDeleteUser(user)}
                           className="p-2 hover:bg-red-100 rounded-md transition-colors text-red-600 hover:text-red-700"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -227,6 +244,18 @@ const UserManagement = () => {
         isOpen={userModalOpen}
         onClose={() => setUserModalOpen(false)}
         user={selectedUser}
+      />
+
+      {/* Delete User Dialog */}
+      <DeleteUserDialog
+        isOpen={deleteDialogOpen}
+        onClose={() => {
+          setDeleteDialogOpen(false);
+          setUserToDelete(null);
+        }}
+        onConfirm={confirmDeleteUser}
+        user={userToDelete}
+        isLoading={isDeleting}
       />
     </>
   );
